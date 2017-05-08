@@ -1,20 +1,41 @@
 [user]
-	name = Arun KS
-#	email = arun.ks@broadcom.com
-	email = getarunks@gmail.com
+       name = Arun KS
+#       email = arunks@codeaurora.org
+#       email = getarunks@gmail.com
+	email = arunks@qti.qualcomm.com
+[review "review-android.quicinc.com"]
+       username = arunks
 [color]
 	ui = auto
+
+[core]
+        editor = vim
 [alias]
 	b = branch -v
-	fp = format-patch -k -M -N -s
+	fp = format-patch -k -M -N
 	co = checkout
+	cof = checkout --
 	s = status
 	d = diff
+	ds = diff --cached
 	ca = commit --amend
 	rh = reset --hard
 	cp = cherry-pick
 	lo = log --oneline
 	bc = branch -a --contains
 	pr = pull --rebase
+	rc = rebase --continue
+	ri = rebase -i
 	r = revert
 	c = commit -s
+
+[url "ssh://git-android-blr.quicinc.com:29418/"]
+  insteadOf = ssh://git-android-hyd.quicinc.com:29418/
+  insteadOf = ssh://git-android-blr.quicinc.com:29418/
+  insteadOf = git://git-android.quicinc.com/
+  insteadOf = git://git.quicinc.com/
+  insteadOf = git://review-android.quicinc.com/
+[url "ssh://git-android-blr.quicinc.com:29418/tools/repo"]
+  insteadOf = https://android.googlesource.com/tools/repo
+[merge]
+	conflictstyle = diff3

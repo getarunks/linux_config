@@ -46,6 +46,7 @@ endif
 "set hidden             " Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 "colorscheme evening
+"colorscheme distinguished
 colorscheme ron
 :set hlsearch
 " Press Space to turn off highlighting and clear any message already displayed.
@@ -94,3 +95,35 @@ set encoding=utf-8
 set t_Co=256
 set ttimeoutlen=50
 
+function ShowSpaces(...)
+  let @/='\v(\s+$)|( +\ze\t)'
+  let oldhlsearch=&hlsearch
+  if !a:0
+    let &hlsearch=!&hlsearch
+  else
+    let &hlsearch=a:1
+  end
+  return oldhlsearch
+endfunction
+
+function TrimSpaces() range
+  let oldhlsearch=ShowSpaces(1)
+  execute a:firstline.",".a:lastline."substitute ///gec"
+  let &hlsearch=oldhlsearch
+endfunction
+
+command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+nnoremap <F5>     :ShowSpaces 1<CR>
+nnoremap <S-F5>   m`:TrimSpaces<CR>``
+vnoremap <S-F5>   :TrimSpaces<CR>
+
+"minbufexpl related
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplMapWindowNavArrows = 1
+"let g:miniBufExplMapCTabSwitchBufs = 1
+"let g:miniBufExplModSelTarget = 1
+"nmap <C-o>   :bprev<CR>
+"nmap <C-p>  :bnext<CR>
+
+"set mouse=a
